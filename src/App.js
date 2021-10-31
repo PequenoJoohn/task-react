@@ -5,52 +5,52 @@ import ListaDeCategorias from "./components/ListaDeCategorias/index";
 
 import './assets/index.css';
 import './assets/App.css'
+import ArrayDeNotas from "./data/Notas";
+import Categorias from "./data/Categorias";
 
 class App extends Component {
 
   constructor() {
     super();
-    this.state = {
-      notas: [],
-      categorias: ["Trabalho", "Esportes"],
-    }
+    this.notas = new ArrayDeNotas();
+    this.categorias = new Categorias();
   }
 
-  criarNota(titulo, texto, categoria) {
-    const novaNota = { titulo, texto, categoria };
-    const novoArrayNotas = [...this.state.notas, novaNota]
-    const novoEstado = {
-      notas: novoArrayNotas
-    }
-    this.setState(novoEstado);
-  }
+  // criarNota(titulo, texto, categoria) {
+  //   const novaNota = { titulo, texto, categoria };
+  //   const novoArrayNotas = [...this.state.notas, novaNota]
+  //   const novoEstado = {
+  //     notas: novoArrayNotas
+  //   }
+  //   this.setState(novoEstado);
+  // }
 
-  adicionarCategoria(nomeCategoria) {
-    const novoArrayCategorias = [...this.state.categorias, nomeCategoria];
-    const novoEstado = { ...this.state, categorias: novoArrayCategorias };
-    this.setState(novoEstado);
-  }
+  // adicionarCategoria(nomeCategoria) {
+  //   const novoArrayCategorias = [...this.state.categorias, nomeCategoria];
+  //   const novoEstado = { ...this.state, categorias: novoArrayCategorias };
+  //   this.setState(novoEstado);
+  // }
 
-  deletaNota(index) {
-    let arraynotas = this.state.notas;
-    arraynotas.splice(index, 1)
-    this.setState({ notas: arraynotas });
-  }
+  // deletaNota(index) {
+  //   let arraynotas = this.state.notas;
+  //   arraynotas.splice(index, 1)
+  //   this.setState({ notas: arraynotas });
+  // }
 
   render() {
     return (
       <section className="conteudo">
         <FormularioCasdatro 
-        categorias={this.state.categorias} 
-        criarNota={this.criarNota.bind(this)}
+        categorias={this.categorias.categorias} 
+        criarNota={this.notas.criarNota}
          />
         <main className="conteudo-principal">
           <ListaDeCategorias
-            adicionarCategoria={this.adicionarCategoria.bind(this)}
-            categorias={this.state.categorias} />
+            adicionarCategoria={this.categorias.adicionarCategoria}
+            categorias={this.categorias.categorias} />
           <ListaDeNotas
-            deletaNota={this.deletaNota.bind(this)}
-            notas={this.state.notas} />
+            deletaNota={this.notas.deletarNota}
+            notas={this.notas.notas} />
         </main>
       </section >
     );
