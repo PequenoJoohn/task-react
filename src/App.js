@@ -7,6 +7,7 @@ import './assets/index.css';
 import './assets/App.css'
 import ArrayDeNotas from "./data/Notas";
 import Categorias from "./data/Categorias";
+import { Header } from "./components/Header";
 
 class App extends Component {
 
@@ -39,20 +40,23 @@ class App extends Component {
 
   render() {
     return (
+      <>
+      <Header/>
       <section className="conteudo">
         <FormularioCasdatro 
-        categorias={this.categorias.categorias} 
-        criarNota={this.notas.criarNota}
+        categorias={this.categorias} 
+        criarNota={this.notas.adicionarNota.bind(this.notas)}
          />
         <main className="conteudo-principal">
           <ListaDeCategorias
-            adicionarCategoria={this.categorias.adicionarCategoria}
-            categorias={this.categorias.categorias} />
+            adicionarCategoria={this.categorias.adicionarCategoria.bind(this.categorias)}
+            categorias={this.categorias} />
           <ListaDeNotas
-            deletaNota={this.notas.deletarNota}
-            notas={this.notas.notas} />
+            deletaNota={this.notas.deletarNota.bind(this.notas)}
+            notas={this.notas} />
         </main>
       </section >
+      </>
     );
   }
 }
